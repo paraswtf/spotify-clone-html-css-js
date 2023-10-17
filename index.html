@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Spotify Web - By paraswtf</title>
+        <link rel="stylesheet" href="/styles/fonts.css">
+        <link rel="stylesheet" href="/styles/style.css">
+        <script src="/iframe-resize.js"></script>
+        <style>
+            .main-container {
+                margin: 10px;
+                display: flex;
+                flex-direction: row;
+                height: calc(100% - 20px);
+                width: calc(100% - 20px);
+            }
+
+            .left-section {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                width: 480px;
+            }
+
+            .right-section {
+                background-color: red;
+                height: 100%;
+                width: 100%;
+            }
+
+            .item-container {
+                background-color: var(--background-press);
+                width: 100%;
+            }
+
+            .item-container2 {
+                background-color: blue;
+                height: 100%;
+                width: 100%;
+            }
+
+            iframe {
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="main-container">
+            <div class="left-section">
+                <div class="item-container">
+                    <iframe src="/left.html" frameborder="0" width="100%" onload="iframeResize('if')" id="if"></iframe>
+                </div>
+                <div class="item-container2">
+                    <iframe src="/library.html" height="100%" width="100%" frameborder="none"></iframe>
+                </div>
+            </div>
+            <div class="right-section">
+                <iframe src="/home.html" height="100%" width="100%" frameborder="none" id="right" name="right"></iframe>
+            </div>
+        </div>
+    </body>
+
+</html>

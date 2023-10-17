@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+
+        <script>
+            let username = prompt("Enter your Spotify username");
+            let exit = false;
+            while (!exit) {
+                if (!username) {
+                    username = prompt("Error - Invalid Value Entered\nEnter your Spotify username");
+                } else {
+                    exit = true;
+                }
+            }
+
+            let age = prompt("Enter your age");
+            exit = false;
+            while (!exit) {
+                if (age === "" || isNaN(age)) {
+                    age = prompt("Error - Invalid Value Entered\nEnter your age");
+                } else {
+                    exit = true;
+                }
+            }
+            document.write(`Your username is: ${username} <br>`);
+            document.write(`Your age is: ${age}`);
+        </script>
+    </head>
+
+    <body>
+
+    </body>
+
+</html>

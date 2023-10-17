@@ -1,0 +1,47 @@
+/*
+ * Legal Disclaimer
+ *
+ * These web fonts are licensed exclusively for use on
+ * spotify.com and websites belonging to Spotify AB
+ *
+ * It is strictly forbidden to download or use these fonts on any other website domain or media.
+ *
+ * While the @font-face statements below may be modified by the client, this
+ * disclaimer may not be removed.
+ *
+ * Lineto.com, 2021
+ */
+
+/*
+ *
+ * INSTRUCTIONS
+ *
+ * Copy the Legal Disclaimer and the @font-faces statements to your regular CSS file.
+ * The fonts folder(s) should be placed relative to the regular CSS file.
+ *
+ */
+
+@font-face {
+	font-family: "Circular Sp Ara Black Web";
+	src: url("/fonts/Circular Sp Ara Web Black.woff") format("woff"), url("/fonts/Circular Sp Ara Web Black.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Circular Sp Ara Bold Web";
+	src: url("/fonts/Circular Sp Ara Web Bold.woff") format("woff"), url("/fonts/Circular Sp Ara Web Bold.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Circular Sp Ara Book Web";
+	src: url("/fonts/Circular Sp Ara Web Book.woff") format("woff"), url("/fonts/Circular Sp Ara Web Book.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Circular Sp Ara Light Web";
+	src: url("/fonts/Circular Sp Ara Web Light.woff") format("woff"), url("/fonts/Circular Sp Ara Web Light.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Circular Sp Ara Medium Web";
+	src: url("/fonts/Circular Sp Ara Web Medium.woff") format("woff"), url("/fonts/Circular Sp Ara Web Medium.woff2") format("woff2");
+}

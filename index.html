@@ -7,14 +7,20 @@
         <title>Spotify Web - By paraswtf</title>
         <link rel="stylesheet" href="/styles/fonts.css">
         <link rel="stylesheet" href="/styles/style.css">
+        <script src="/globals.js"></script>
         <script src="/iframe-resize.js"></script>
+        <script src="/index.js"></script>
         <style>
+            body {
+                overflow: hidden;
+            }
+
             .main-container {
-                margin: 10px;
+                padding: 10px;
                 display: flex;
                 flex-direction: row;
-                height: calc(100% - 20px);
-                width: calc(100% - 20px);
+                height: calc(100% - 10px);
+                width: calc(100% - 10px);
             }
 
             .left-section {
@@ -27,11 +33,10 @@
             .right-section {
                 background-color: red;
                 height: 100%;
-                width: 100%;
             }
 
             .item-container {
-                background-color: var(--background-press);
+                background-color: var(--background-elevated);
                 width: 100%;
             }
 
@@ -53,14 +58,16 @@
         <div class="main-container">
             <div class="left-section">
                 <div class="item-container">
-                    <iframe src="/left.html" frameborder="0" width="100%" onload="iframeResize('if')" id="if"></iframe>
+                    <iframe src="/left.html" frameborder="0" width="100%" onload="iframeResize('if')" id="if"
+                        scrolling="no"></iframe>
                 </div>
                 <div class="item-container2">
-                    <iframe src="/library.html" height="100%" width="100%" frameborder="none"></iframe>
+                    <iframe src="/library.html" height="100%" width="100%" frameborder="none" scrolling="no"></iframe>
                 </div>
             </div>
             <div class="right-section">
-                <iframe src="/home.html" height="100%" width="100%" frameborder="none" id="right" name="right"></iframe>
+                <iframe src="/home.html" height="100%" width="100%" frameborder="none" id="right" name="right"
+                    scrolling="no"></iframe>
             </div>
         </div>
     </body>

@@ -13,6 +13,7 @@
                 border: 0;
                 font-family: 'Circular Sp Ara Bold Web';
                 font-size: 16px;
+                font-weight: 400;
             }
 
             .container {
@@ -21,6 +22,8 @@
                 background-color: var(--background-base);
                 margin: 4px;
                 border-radius: 4px;
+                padding: 16px;
+                height: calc(100% - 42px);
             }
 
             .head-container {
@@ -28,7 +31,6 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: flex-start;
-                padding: 16px 0 16px 16px;
                 color: var(--text-subdued);
                 gap: 16px;
             }
@@ -36,7 +38,78 @@
             .head-image {
                 fill: var(--text-subdued);
             }
+
+            .filter-buttons {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 8px;
+                margin-block: 8px;
+                white-space: nowrap;
+                overflow: hidden;
+                overflow-x: scroll;
+                overflow-inline: scroll;
+                width: 100%;
+            }
+
+            .filter-button {
+                font-family: 'Circular Sp Ara Light Web';
+                font-weight: 400;
+                font-size: 14px;
+                background-color: var(--background-tinted-base);
+                display: flex;
+                padding-block: 4px;
+                padding-inline: 10px;
+                border-radius: 14px;
+                cursor: pointer;
+                z-index: 2;
+            }
+
+            .filter-button:hover {
+                background-color: var(--background-tinted-highlight);
+            }
+
+            .filter-button:active {
+                background-color: var(--background-tinted-press);
+            }
+
+            .filter-button.active {
+                color: var(--background-press);
+                background-color: var(--essential-base);
+            }
+
+            .filter-button.active:active {
+                background-color: var(--text-subdued);
+            }
+
+            .overridden-button {
+                padding-left: 30px;
+                margin-left: -34px;
+                z-index: 1;
+                background-color: hsl(0, 0%, 90%) !important;
+
+                &:hover {
+                    background-color: hsl(0, 0%, 100%) !important;
+                }
+
+                &:active {
+                    background-color: hsl(0, 0%, 90%) !important;
+                }
+            }
+
+            .loaded-content {
+                overflow: scroll;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                height: 100%;
+            }
         </style>
+
+        <script src="/globals.js"></script>
+        <script src="/library.js"></script>
     </head>
 
     <body>
@@ -49,6 +122,11 @@
                     </path>
                 </svg>
                 <h1>Library</h1>
+
+            </div>
+            <div class="filter-buttons">
+            </div>
+            <div class="loaded-content">
             </div>
         </div>
     </body>

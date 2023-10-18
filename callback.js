@@ -11,7 +11,8 @@ let body = new URLSearchParams({
 	code_verifier: codeVerifier
 });
 
-const response = fetch("https://accounts.spotify.com/api/token", {
+//Get auth token
+fetch("https://accounts.spotify.com/api/token", {
 	method: "POST",
 	headers: {
 		"Content-Type": "application/x-www-form-urlencoded"
@@ -25,11 +26,16 @@ const response = fetch("https://accounts.spotify.com/api/token", {
 		return response.json();
 	})
 	.then((data) => {
+		localStorage.removeItem("code_verifier");
+		localStorage.setItem("refresh_token", data.refresh_token);
 		localStorage.setItem("access_token", data.access_token);
+		localStorage.setItem("expires", Date.now() + data.expires * 1000);
 	})
 	.catch((error) => {
 		console.error("Error:", error);
 	});
+
+//window.location = "/";
 
 async function getProfile() {
 	let accessToken = localStorage.getItem("access_token");
@@ -41,7 +47,5 @@ async function getProfile() {
 	});
 
 	const data = await response.json();
-
-	console.log(data);
 }
 getProfile();

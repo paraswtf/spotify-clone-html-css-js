@@ -1,6 +1,6 @@
 // Keys
 const clientId = "c6f9e1f89bf44ab0888ced219203d6bd";
-const redirectUri = `https://${window.location.host}}/callback.html`;
+const redirectUri = `http${window.location.hostname === "localhost" ? "" : "s"}://${window.location.host}/callback.html`;
 const scopes = [
 	"user-read-playback-state",
 	"user-modify-playback-state",

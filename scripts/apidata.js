@@ -1,6 +1,6 @@
 // Keys
 const clientId = "c6f9e1f89bf44ab0888ced219203d6bd";
-const redirectUri = "https://paraswtf-spotify-clone.vercel.app";
+const redirectUri = "https://paraswtf-spotify-clone.vercel.app/callback.html";
 const scopes = [
 	"user-read-playback-state",
 	"user-modify-playback-state",

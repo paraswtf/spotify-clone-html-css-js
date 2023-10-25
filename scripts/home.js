@@ -21,6 +21,9 @@ fetchData().then((d) => {
 		// .map(({ value }) => value)
 		//Shuffle end
 		.forEach((pl, key) => {
+			const playlistCard = document.createElement("div");
+			playlistCard.classList.add("playlist-card");
+
 			const image = new Image();
 			image.src = pl.images[0].url;
 			image.crossOrigin = "anonymous";
@@ -34,8 +37,6 @@ fetchData().then((d) => {
 					document.body.style.setProperty("background-color", `rgb(${defaultColor.r}, ${defaultColor.g}, ${defaultColor.b})`);
 				}
 
-				const playlistCard = document.createElement("div");
-				playlistCard.classList.add("playlist-card");
 				playlistCard.onmouseenter = () => {
 					//Set background to gradient
 					document.body.style.setProperty("background-color", `rgb(${avgClr.r}, ${avgClr.g}, ${avgClr.b})`);
@@ -45,8 +46,9 @@ fetchData().then((d) => {
 					document.body.style.setProperty("background-color", `rgb(${defaultColor.r}, ${defaultColor.g}, ${defaultColor.b})`);
 					//document.body.style.setProperty("background", "linear-gradient(rgb(60, 60, 60) 0%, rgb(0, 0, 0) 100%)");
 				};
+			};
 
-				playlistCard.innerHTML = `
+			playlistCard.innerHTML = `
 				<div class="playlist-details">
 					<img class="playlist-image" src=${pl.images[0].url} height="100%" crossorigin="anonymous" />
 					<p class="playlist-name" id="playlist-name" ${pl.name.split(/\s/).find((w) => w.length > 12) ? 'style="word-break: break-all;"' : ""}>${pl.name}</p>
@@ -59,7 +61,6 @@ fetchData().then((d) => {
 					</svg>
 				</div>
 			`;
-				document.getElementById("playlists").appendChild(playlistCard);
-			};
+			document.getElementById("playlists").appendChild(playlistCard);
 		});
 });

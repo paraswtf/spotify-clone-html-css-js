@@ -16,9 +16,9 @@ fetchData().then((d) => {
 	d.playlists
 		.slice(0, 6)
 		//Shuffle start
-		.map((value) => ({ value, sort: Math.random() }))
-		.sort((a, b) => a.sort - b.sort)
-		.map(({ value }) => value)
+		// .map((value) => ({ value, sort: Math.random() }))
+		// .sort((a, b) => a.sort - b.sort)
+		// .map(({ value }) => value)
 		//Shuffle end
 		.forEach((pl, key) => {
 			const image = new Image();

@@ -36,10 +36,10 @@ function getMainWindow() {
 async function makeAuthorizedRequest(url, options, force) {
 	await updateRefreshTokenIfExpired();
 
+	//Check cached data
+	const cache = await window.caches.open("spotify-web-api-cache");
 	if (!force) {
-		//Check cached data
-		const cache = await window.caches.open("spotify-web-api-cache");
-		const cachedResponse = await cache.match(url, options);
+		const cachedResponse = await cache?.match(url, options);
 		if (cachedResponse) return cachedResponse;
 	}
 
@@ -61,7 +61,6 @@ async function makeAuthorizedRequest(url, options, force) {
 			await requestAuth();
 		} else {
 			cache.put(url, res.clone());
-			console.log(res);
 			return res;
 		}
 	});

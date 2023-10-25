@@ -50,7 +50,7 @@ fetchData().then((d) => {
 
 			playlistCard.innerHTML = `
 				<div class="playlist-details">
-					<img class="playlist-image" src=${pl.images[0].url} height="100%" crossorigin="anonymous" />
+					<img class="playlist-image" src=${pl.images[0].url} height="100%" crossorigin="anonymous" loading="lazy"/>
 					<p class="playlist-name" id="playlist-name" ${pl.name.split(/\s/).find((w) => w.length > 12) ? 'style="word-break: break-all;"' : ""}>${pl.name}</p>
 				</div>
 				<div class="play-button bright-accent">

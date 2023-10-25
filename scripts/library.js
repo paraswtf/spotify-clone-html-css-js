@@ -201,7 +201,7 @@ function generateStyledItem(imageUrl, title, type, by, url) {
 	item.classList.add("item");
 	item.innerHTML = `
 		<a href="${url || "/home.html"}" style="text-decoration: none; color: inherit; display: flex; width: 100%" target="right">
-			<img src="${imageUrl}" alt="${title}" height="50px" width="50px" style="${imageStyle}"/>
+			<img src="${imageUrl}" alt="${title}" height="50px" width="50px" style="${imageStyle}" loading="lazy"/>
 			<div style="${textContainerStyle}">
 				<p class="item-title" style="${titleStyle}">${title}</p>
 				<div class="item-text" style="${itemTextStyle}">

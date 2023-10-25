@@ -29,11 +29,41 @@
 	--decorative-subdued: #292929;
 }
 
+.bright-accent {
+	--background-base: #1ed760;
+	--background-highlight: #1fdf64;
+	--background-press: #169c46;
+	--background-elevated-base: #1ed760;
+	--background-elevated-highlight: #1ed760;
+	--background-elevated-press: #1ed760;
+	--background-tinted-base: #1ed760;
+	--background-tinted-highlight: #1ed760;
+	--background-tinted-press: #1ed760;
+	--background-unsafe-for-small-text-base: #1ed760;
+	--background-unsafe-for-small-text-highlight: #1ed760;
+	--background-unsafe-for-small-text-press: #1ed760;
+	--text-base: #000;
+	--text-subdued: #000;
+	--text-bright-accent: #000;
+	--text-negative: #000;
+	--text-warning: #000;
+	--text-positive: #000;
+	--text-announcement: #000;
+	--essential-base: #000;
+	--essential-subdued: #000;
+	--essential-bright-accent: #000;
+	--essential-negative: #000;
+	--essential-warning: #000;
+	--essential-positive: #000;
+	--essential-announcement: #000;
+	--decorative-base: #000;
+	--decorative-subdued: #1abc54;
+}
+
 body {
 	background-color: var(--background-press);
 	color: var(--text-base);
-	height: 100vh;
-	width: 100vw;
+	min-height: 100vh;
 	margin: 0;
 	padding: 0;
 }

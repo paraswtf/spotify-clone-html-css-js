@@ -42,12 +42,12 @@ function createFilterButton(filterobj, isReset = false, disableActiveEffect = fa
 	if (!disableActiveEffect && isReset) button.classList.add("active");
 	button.id = filterobj.id;
 	button.innerText = filterobj.name;
+	button.style.marginBlock = 0;
 	button.onclick = () => {
 		if (typeof isReset === "string") filter = filterValues.find((filterValue) => filterValue.id == isReset);
 		else filter = isReset ? defaultFilter : filterobj;
 		renderFilterButtons();
 		renderContent();
-		console.log(filter);
 	};
 	return button;
 }
@@ -121,48 +121,6 @@ function renderFilterButtons() {
 	}
 }
 
-var consolidatedData = undefined;
-
-async function fetchData() {
-	if (consolidatedData) return consolidatedData;
-
-	consolidatedData = {
-		playlists: [],
-		podcasts: [],
-		shows: [],
-		albums: [],
-		artists: []
-	};
-
-	await makeAuthorizedRequest("https://api.spotify.com/v1/me/playlists")
-		.then((response) => response.json())
-		.then(async (data) => {
-			consolidatedData.playlists = data.items || [];
-			while (data.next) {
-				data = await makeAuthorizedRequest(data.next).then((d) => d.json());
-				consolidatedData.playlists.push(...data.items.filter((i) => !!i));
-			}
-		});
-
-	consolidatedData.podcasts = await makeAuthorizedRequest("https://api.spotify.com/v1/me/shows")
-		.then((response) => response.json())
-		.then((data) => data.items);
-
-	consolidatedData.shows = await makeAuthorizedRequest("https://api.spotify.com/v1/me/shows")
-		.then((response) => response.json())
-		.then((data) => data.items);
-
-	consolidatedData.albums = await makeAuthorizedRequest("https://api.spotify.com/v1/me/albums")
-		.then((response) => response.json())
-		.then((data) => data.items);
-
-	consolidatedData.artists = await makeAuthorizedRequest("https://api.spotify.com/v1/me/following?type=artist")
-		.then((response) => response.json())
-		.then((data) => data.artists.items);
-
-	return consolidatedData;
-}
-
 function renderContent() {
 	var content = document.querySelector(".loaded-content");
 	content.innerHTML = "";
@@ -170,51 +128,52 @@ function renderContent() {
 	fetchData().then((d) => {
 		switch (filter.id) {
 			case "playlists":
-				console.log(d.playlists);
-				d.playlists.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name)).forEach((e) => content.appendChild(e));
+				d.playlists.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name, `/${pl.type}/${pl.id}`)).forEach((e) => content.appendChild(e));
 				break;
 			case "playlists:you":
 				d.playlists
-					.filter((pl) => pl.owner.display_name === "paraswtf")
-					.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name))
+					.filter((pl) => pl.owner.display_name === localStorage.getItem("display_name"))
+					.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name, `/${pl.type}/${pl.id}`))
 					.forEach((e) => content.appendChild(e));
 				break;
 			case "playlists:spotify":
 				d.playlists
 					.filter((pl) => pl.owner.display_name === "Spotify")
-					.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name))
+					.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name, `/${pl.type}/${pl.id}`))
 					.forEach((e) => content.appendChild(e));
 				break;
 			case "artists":
-				d.artists.map((ar) => generateStyledItem(ar.images[0].url, ar.name, "Artist")).forEach((e) => content.appendChild(e));
+				d.artists.map((ar) => generateStyledItem(ar.images[0].url, ar.name, "Artist", undefined, `/${ar.type}/${ar.id}`)).forEach((e) => content.appendChild(e));
 				break;
 			case "podcasts":
-				d.podcasts.map((pd) => generateStyledItem(pd.show.images[0].url, pd.show.name, "Podcast", pd.show.publisher)).forEach((e) => content.appendChild(e));
+				d.podcasts.map((pd) => generateStyledItem(pd.show.images[0].url, pd.show.name, "Podcast", pd.show.publisher, `/${pd.show.type}/${pd.show.id}`)).forEach((e) => content.appendChild(e));
 				break;
 			case "albums":
-				d.albums.map((a) => generateStyledItem(a.album.images[0].url, a.album.name, "Album", a.album.label)).forEach((e) => content.appendChild(e));
+				d.albums.map((a) => generateStyledItem(a.album.images[0].url, a.album.name, "Album", a.album.label, `/${a.album.type}/${a.album.id}`)).forEach((e) => content.appendChild(e));
 				break;
 			case "none":
 			default:
-				d.playlists.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name)).forEach((e) => content.appendChild(e));
-				d.artists.map((ar) => generateStyledItem(ar.images[0].url, ar.name, "Artist")).forEach((e) => content.appendChild(e));
-				d.podcasts.map((pd) => generateStyledItem(pd.show.images[0].url, pd.show.name, "Podcast", pd.show.publisher)).forEach((e) => content.appendChild(e));
-				d.albums.map((a) => generateStyledItem(a.album.images[0].url, a.album.name, "Album", a.album.label)).forEach((e) => content.appendChild(e));
+				d.playlists.map((pl) => generateStyledItem(pl.images[0].url, pl.name, "Playlist", pl.owner.display_name, `/${pl.type}/${pl.id}`)).forEach((e) => content.appendChild(e));
+				d.artists.map((ar) => generateStyledItem(ar.images[0].url, ar.name, "Artist", undefined, `/${ar.type}/${ar.id}`)).forEach((e) => content.appendChild(e));
+				d.podcasts.map((pd) => generateStyledItem(pd.show.images[0].url, pd.show.name, "Podcast", pd.show.publisher, `/${pd.show.type}/${pd.show.id}`)).forEach((e) => content.appendChild(e));
+				d.albums.map((a) => generateStyledItem(a.album.images[0].url, a.album.name, "Album", a.album.label, `/${a.album.type}/${a.album.id}`)).forEach((e) => content.appendChild(e));
 				break;
 		}
 	});
 }
 
-function generateStyledItem(imageUrl, title, type, by) {
+function generateStyledItem(imageUrl, title, type, by, url) {
 	const containerStyle = parseInlineStyles(`
         display: flex;
         flex-direction: row;
+        width: 80%;
     `);
 	const textContainerStyle = parseInlineStyles(`
         display: flex;
         flex-direction: column;
         justify-content: center;
         padding-left: 10px;
+		width: 100%;
     `);
 	const titleStyle = parseInlineStyles(`
         font-size: 16px;
@@ -233,9 +192,6 @@ function generateStyledItem(imageUrl, title, type, by) {
         margin: 0;
         font-family: 'Circular Sp Ara Light Web';
         color: var(--text-subdued);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     `);
 	const imageStyle = parseInlineStyles(`
         border-radius: ${by ? "4px" : "25px"};
@@ -244,21 +200,23 @@ function generateStyledItem(imageUrl, title, type, by) {
 	item.style = containerStyle;
 	item.classList.add("item");
 	item.innerHTML = `
-        <img src="${imageUrl}" alt="${title}" height="50px" width="50px" style="${imageStyle}"/>
-        <div style="${textContainerStyle}">
-            <p class="item-title" style="${titleStyle}">${title}</p>
-            <div class="item-text" style="${itemTextStyle}">
-                <p class="item-type" style="margin:0px">${type}</p>
-                ${
-					by
-						? `
-                        <div style="height: 4px; width: 4px; background-color:var(--essential-subdued); border-radius:2px;"></div>
-                            <p class="item-by" style="margin:0px">${by}</p>
-                        `
-						: ""
-				}
-            </div>
-        </div>
+		<a href="${url || "/home.html"}" style="text-decoration: none; color: inherit; display: flex; width: 100%" target="right">
+			<img src="${imageUrl}" alt="${title}" height="50px" width="50px" style="${imageStyle}"/>
+			<div style="${textContainerStyle}">
+				<p class="item-title" style="${titleStyle}">${title}</p>
+				<div class="item-text" style="${itemTextStyle}">
+					<p class="item-type" style="margin:0px;">${type}</p>
+					${
+						by
+							? `
+							<div style="display: block; height: 4px; min-width: 4px; width: 4px; background-color:var(--essential-subdued); border-radius:2px;"></div>
+								<p class="item-by" style="margin:0px; width:100%; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">${by}</p>
+							`
+							: ""
+					}
+				</div>
+			</div>
+		</a>
     `;
 	return item;
 }

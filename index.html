@@ -7,12 +7,10 @@
         <title>Spotify Web - By paraswtf</title>
         <link rel="stylesheet" href="/styles/fonts.css">
         <link rel="stylesheet" href="/styles/style.css">
-        <script src="/globals.js"></script>
-        <script src="/iframe-resize.js"></script>
-        <script src="/index.js"></script>
         <style>
             body {
                 overflow: hidden;
+                height: 100vh;
             }
 
             .main-container {
@@ -26,13 +24,14 @@
             .left-section {
                 display: flex;
                 flex-direction: column;
-                height: 100%;
+                height: 100vh;
                 width: 480px;
             }
 
             .right-section {
                 background-color: red;
                 height: 100%;
+                width: 100%;
             }
 
             .item-container {
@@ -41,34 +40,137 @@
             }
 
             .item-container2 {
-                background-color: blue;
                 height: 100%;
                 width: 100%;
             }
 
             iframe {
                 border: none;
-                margin: 0;
+                margin: 4px;
                 padding: 0;
+                border-radius: 6px;
+            }
+
+            /*Left nav container css*/
+            .left-nav-buttons-container {
+                display: flex;
+                flex-direction: column;
+                background-color: var(--background-base);
+                padding: 0;
+                margin: 4px;
+                border-radius: 6px;
+                padding-block: 10px;
+                justify-content: center;
+            }
+
+            .button {
+                display: flex;
+                flex-direction: row;
+                height: 48px;
+                padding: 0 16px;
+                align-items: center;
+                cursor: pointer;
+                color: var(--text-subdued);
+                fill: var(--text-subdued);
+                transition: all 0.2s ease-in-out;
+                text-decoration: none;
+            }
+
+            .button-active-icon {
+                display: none;
+            }
+
+            .button:hover,
+            .button-clicked {
+                color: var(--text-base);
+                fill: var(--text-base);
+            }
+
+            .button-clicked .button-icon {
+                display: none;
+            }
+
+            .button-clicked .button-active-icon {
+                display: unset;
+            }
+
+
+            .button-icon-container {
+                height: 24px;
+                width: 24px;
+                margin-right: 16px;
+            }
+
+            .button-text {
+                font-family: 'Circular Sp Ara Bold Web';
+                font-size: 16px;
             }
         </style>
+        <script src="/scripts/apidata.js">
+        </script>
+        <script src="/scripts/refreshToken.js"></script>
+        <script defer>
+            //For nav buttons click effect
+            document.addEventListener("DOMContentLoaded", () => {
+                for (let button of document.querySelectorAll('.button'))
+                    button.addEventListener('click', () => {
+                        document.querySelector('.button-clicked')?.classList.remove('button-clicked');
+                        button.classList.toggle('button-clicked');
+                    });
+            })
+        </script>
+        <script>
+            //run get profile once to check login
+            getProfile();
+        </script>
     </head>
 
     <body>
         <div class="main-container">
             <div class="left-section">
-                <div class="item-container">
-                    <iframe src="/left.html" frameborder="0" width="100%" onload="iframeResize('if')" id="if"
-                        scrolling="no"></iframe>
+                <div class="left-nav-buttons-container">
+                    <a class="button button-clicked" href="/home.html" target="right">
+                        <div class="button-icon-container">
+                            <svg role="img" height="24" width="24" aria-hidden="true" class="button-active-icon"
+                                viewBox="0 0 24 24" data-encore-id="icon">
+                                <path
+                                    d="M13.5 1.515a3 3 0 0 0-3 0L3 5.845a2 2 0 0 0-1 1.732V21a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-6h4v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V7.577a2 2 0 0 0-1-1.732l-7.5-4.33z">
+                                </path>
+                            </svg>
+                            <svg role="img" height="24" width="24" aria-hidden="true" class="button-icon"
+                                viewBox="0 0 24 24" data-encore-id="icon">
+                                <path
+                                    d="M12.5 3.247a1 1 0 0 0-1 0L4 7.577V20h4.5v-6a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 0 1 3 0l7.5 4.33a2 2 0 0 1 1 1.732V21a1 1 0 0 1-1 1h-6.5a1 1 0 0 1-1-1v-6h-3v6a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.577a2 2 0 0 1 1-1.732l7.5-4.33z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="button-text">Home</div>
+                    </a>
+                    <a class="button" href="/search.html" target="right">
+                        <div class="button-icon-container">
+                            <svg role="img" height="24" width="24" aria-hidden="true" class="button-icon"
+                                viewBox="0 0 24 24" data-encore-id="icon">
+                                <path
+                                    d="M10.533 1.279c-5.18 0-9.407 4.14-9.407 9.279s4.226 9.279 9.407 9.279c2.234 0 4.29-.77 5.907-2.058l4.353 4.353a1 1 0 1 0 1.414-1.414l-4.344-4.344a9.157 9.157 0 0 0 2.077-5.816c0-5.14-4.226-9.28-9.407-9.28zm-7.407 9.279c0-4.006 3.302-7.28 7.407-7.28s7.407 3.274 7.407 7.28-3.302 7.279-7.407 7.279-7.407-3.273-7.407-7.28z">
+                                </path>
+                            </svg>
+                            <svg role="img" height="24" width="24" aria-hidden="true" class="button-active-icon"
+                                viewBox="0 0 24 24" data-encore-id="icon">
+                                <path
+                                    d="M15.356 10.558c0 2.623-2.16 4.75-4.823 4.75-2.664 0-4.824-2.127-4.824-4.75s2.16-4.75 4.824-4.75c2.664 0 4.823 2.127 4.823 4.75z">
+                                </path>
+                                <path
+                                    d="M1.126 10.558c0-5.14 4.226-9.28 9.407-9.28 5.18 0 9.407 4.14 9.407 9.28a9.157 9.157 0 0 1-2.077 5.816l4.344 4.344a1 1 0 0 1-1.414 1.414l-4.353-4.353a9.454 9.454 0 0 1-5.907 2.058c-5.18 0-9.407-4.14-9.407-9.28zm9.407-7.28c-4.105 0-7.407 3.274-7.407 7.28s3.302 7.279 7.407 7.279 7.407-3.273 7.407-7.28c0-4.005-3.302-7.278-7.407-7.278z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="button-text">Search</div>
+                    </a>
                 </div>
-                <div class="item-container2">
-                    <iframe src="/library.html" height="100%" width="100%" frameborder="none" scrolling="no"></iframe>
-                </div>
+                <iframe src="/library.html" height="100%" frameborder="none"></iframe>
             </div>
-            <div class="right-section">
-                <iframe src="/home.html" height="100%" width="100%" frameborder="none" id="right" name="right"
-                    scrolling="no"></iframe>
-            </div>
+            <iframe src="/home.html" height="100%" width="100%" frameborder="none" id="right" name="right"
+                scrolling="no"></iframe>
         </div>
     </body>
 
